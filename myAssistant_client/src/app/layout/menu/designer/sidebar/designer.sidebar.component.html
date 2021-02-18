@@ -1,0 +1,38 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <ul class="list-group">
+        <a routerLink="/template_manager" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-users"></i>&nbsp; {{lbl_templateMgr.desc }}
+        </a>
+
+        <a routerLink="/wrapscenarios" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-cubes"></i>&nbsp; {{lbl_wrapQuestion.desc }}
+        </a>
+
+
+        <!--div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('inventory')">
+                <span><i class="fas fa-cubes"></i> &nbsp; {{ 'Inventory' | translate}} </span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'inventory' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/inventory" [routerLinkActive]="['router-link-active']" ><span><i class="fa fa-fw fa-university"></i> {{ 'Inventory follow-up' | translate}}</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'inventory' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/counting" [routerLinkActive]="['router-link-active']" ><span><i class="fa fa-fw fa-university"></i> {{ 'Third-Party counting' | translate}}</span></a>
+                    </li>
+                </ul>
+            </li>
+        </div-->
+    </ul>
+</nav>
+<!-- Administration section -->
+<nav class="sidebar_admin" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}" >
+    <div class="logo">
+        <img style="width: 80%; padding-left: 25%;" src="{{_userService.userInfo.mainEnvironment[0].picture}}" alt="Picture">
+    </div>
+</nav>

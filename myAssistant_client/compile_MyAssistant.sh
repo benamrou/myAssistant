@@ -1,0 +1,1 @@
+npm run prod_assistant && npm run post-build

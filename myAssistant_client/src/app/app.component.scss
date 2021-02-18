@@ -1,5 +1,16 @@
 
 /*******************************************/
+/* Screen default coloring and setup       */
+/*******************************************/
+:root 
+{
+    //--APP_BACKGROUND_LVL0: #0F0D18;
+    --APP_BACKGROUND_LVL0: #17161D;
+    --APP_BACKGROUND_LVL1: #111020; 
+}
+
+
+/*******************************************/
 /* Override Prime-ng DATATABLE CSS         */
 /*******************************************/
 
@@ -171,3 +182,4 @@
     font-weight: bold;
     color: orangered;
 }
+

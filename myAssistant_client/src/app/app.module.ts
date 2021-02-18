@@ -11,19 +11,22 @@ import { AppComponent } from './app.component';
 
 
 import { DatePipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthentificationGuard, HttpService } from './shared/services/index';
-import { UserService, LogginService, LabelService, QueryService, StructureService } from './shared/services/index';
+import { UserService, LogginService, LabelService, QueryService } from './shared/services/index';
 import { GridsterModule } from './shared';
 //import { HttpModule, Http, ResponseOptions, RequestOptions, BaseRequestOptions, XHRBackend, BrowserXhr } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
+import { NgEventOptionsModule } from 'ng-event-options';
 
 // AoT requires an exported function for factories
 //export function HttpServiceFactory(backend: XHRBackend, options: RequestOptions, browser: BrowserXhr, responses: ResponseOptions) {
 //export function HttpServiceFactory(mockbackend: MockBackend, backend: XHRBackend, options: BaseRequestOptions) {
 //    return new HttpService(mockbackend, backend, options);
 //}
+
 
 
 // AoT requires an exported function for factories
@@ -37,6 +40,7 @@ export const createTranslateLoader = (http: HttpClient) => {
    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 };
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -44,6 +48,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserAnimationsModule,
         HttpClientModule,
         GridsterModule,
+        NgEventOptionsModule,
+        FormsModule, ReactiveFormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -65,7 +71,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         //BaseRequestOptions,
         AuthentificationGuard, 
         //XHRBackend, BrowserXhr,ResponseOptions,
-        UserService, LogginService, LabelService, QueryService,StructureService,
+        UserService, LogginService, LabelService, QueryService,
         DatePipe],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

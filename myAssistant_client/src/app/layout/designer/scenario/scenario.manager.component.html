@@ -1,0 +1,106 @@
+<div [@routerTransition]>
+    <app-page-header #pageHeader [heading]="'Build session, agenda, example'" [icon]="'fas fa-thumbtack'"
+                     [routerLinkDashboard]="['/dashboard_designer']"
+                     [(screenID)]="screenID"></app-page-header>
+</div>
+
+<div class="content-section implementation" style="padding: 5px">
+    <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+</div>
+
+<div style="display: block;margin-bottom: 2em; height: 0px">
+    <button pButton pRipple icon="pi pi-plus" class="p-button-warning"  style="border-radius: 50%; font-size:0.2em" tooltipPosition="top" (click)="openNew()" pTooltip="New"></button>
+    <button pButton pRipple icon="pi pi-save" class="p-button-warning"  style="border-radius: 50%; left:0.5em; font-size:0.2em" tooltipPosition="top" (click)="saveChanges()" pTooltip="Save"></button>
+    <button pButton pRipple icon="pi pi-upload" class="p-button-warning" style="border-radius: 50%; left:1em; font-size:0.2em" tooltipPosition="top" (click)="exportExcel()" pTooltip="Export"></button>
+
+    <button pButton pRipple icon="fas fa-expand-arrows-alt" class="p-button-warning" *ngIf="!isFullScreen" (click)="openFullscreen()" style="border-radius: 50%; float:right; font-size:0.8em"></button>
+    <button pButton pRipple icon="fas fa-compress-arrows-alt"  class="p-button-warning" *ngIf="isFullScreen" (click)="closeFullscreen()"  style="border-radius: 50%; float:right; font-size:0.8em"></button>
+
+</div>
+
+<!-- MODE LIST-->
+<perfect-scrollbar ps-show-always style="max-width: 100%; max-height:700px;position: relative" fxFlex="auto"  [scrollIndicators]="true" [config]="config">
+   <!-- Mode display-->
+    <div *ngIf="v_mode == v_modeDisplay" style="padding-top: 1em;">
+        <p-table #dt [value]="scenarios" [rows]="10" 
+            dataKey="FCQINTID"
+            [paginator]="true" 
+            [columns]="columnScenarios"
+            [(selection)]="selectedScenario"
+            selectionMode="single" 
+            [metaKeySelection]="false"
+            [globalFilterFields]="['FCQID','FCQNAME','FCQDESC','FCQTAGS', 'FCQTAGSPROFIL', 'FCQTECH', 'FCQDURATION']">
+            <ng-template pTemplate="caption">
+                <div style="display: block;margin-bottom: 2em; height: 0px">
+                    <span class="p-input-icon-left" style="float: right;width: 30%;">
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." style="width: 100%;"/>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr style="font-size: small; line-height: 1; ">
+                    <ng-container *ngFor="let col of columnScenarios">
+                        <th *ngIf="col.display" [style.text-align]="col.align" pSortableColumn="{{col.field}}">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </ng-container>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr *ngIf="dataReady" style="font-size:small" [pSelectableRow]="rowData" (click)="selectRow(i)">
+                    <ng-container *ngFor="let col of columnScenarios">
+                        <td *ngIf="col.display" [style.text-align]="col.align">
+                            {{rowData[col.field]}}
+                        </td>
+                    </ng-container>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" tooltipPosition="top" class="p-button-rounded p-button-success p-mr-2" (click)="editScenario(i)"></button>
+                        <button pButton pRipple icon="pi pi-trash" tooltipPosition="top" class="p-button-rounded p-button-warning" (click)="deleteScenario(i)" style="left:0.2em; "></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div style="float:right; line-height: 0; font-size: small; font-weight: lighter;" *ngIf="dataReady">
+                    {{scenarios.length}} references
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Bottom tags-->
+    <div style="height: 40%;padding-top: 0.2em;" 
+        *ngIf="dataReady && rowSelected && v_mode == v_modeDisplay">
+        <div class="card" style="display: inline-block; width: 49%">
+            <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold; line-height: 0;">
+                Keywords/Tags
+            </div>
+            <div >
+                <p-chips [(ngModel)]="keywordsTags" disabled></p-chips>
+            </div>
+        </div>
+
+        <div class="card" style="display: inline-block; width: 50%; float:right;">
+            <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold;line-height: 0;">
+            Customer profile required
+            </div>
+            <div >
+                <p-chips [(ngModel)]="profilesTags" disabled>
+                    <ng-template let-item pTemplate="item">
+                        <i class="pi pi-user" style="margin-right: 0.3em;"></i>  {{item}}
+                    </ng-template>
+                </p-chips>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Edit a scenario -->
+    <div *ngIf="v_mode == v_modeEdit" >
+        <survey-create [json]='selectedScenario.FCQQUESTION' (surveySaved)="saveSurvey($event)">
+        </survey-create>
+    </div>
+</perfect-scrollbar>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -156,7 +156,7 @@ export class ImportService{
         this.params = this.params.append('PARAM',trace);
         this.params = this.params.append('PARAM',now);
         this.params = this.params.append('PARAM',schedule_date);
-        this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+        this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
         headersSearch = headersSearch.set('QUERY_ID', this.request );
         headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
@@ -180,7 +180,7 @@ export class ImportService{
     this.params = this.params.append('PARAM',trace);
     this.params = this.params.append('PARAM',now);
     this.params = this.params.append('PARAM',schedule_date);
-    this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+    this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
     headersSearch = headersSearch.set('QUERY_ID', this.request );
     headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
@@ -200,7 +200,7 @@ export class ImportService{
     let options = new HttpHeaders();
     this.params= new HttpParams();
     this.params = this.params.append('PARAM',executionId);
-    this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+    this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
     headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
     headersSearch = headersSearch.set('LANGUAGE', this._userService.userInfo.envDefaultLanguage);
@@ -247,7 +247,7 @@ export class ImportService{
         let headersSearch = new HttpHeaders();
         this.params= new HttpParams();
         this.params = this.params.append('PARAM',filename);
-        this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+        this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
         headersSearch = headersSearch.set('QUERY_ID', this.request );
         headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
@@ -361,7 +361,7 @@ export class ImportService{
         this.params = this.params.append('PARAM',now);
         this.params = this.params.append('PARAM',schedule_date);
         this.params = this.params.append('PARAM',status);
-        this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+        this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
         headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
         headersSearch = headersSearch.set('LANGUAGE', this._userService.userInfo.envDefaultLanguage);
   
@@ -376,7 +376,7 @@ export class ImportService{
         let headersSearch = new HttpHeaders();
         this.params= new HttpParams();
         this.params = this.params.append('PARAM',jsonid);
-        this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+        this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
     
         headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
         headersSearch = headersSearch.set('LANGUAGE', this._userService.userInfo.envDefaultLanguage);

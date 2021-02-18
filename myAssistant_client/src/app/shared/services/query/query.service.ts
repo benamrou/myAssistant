@@ -1,12 +1,8 @@
-import {Component, Inject, Injectable,Input,Output,EventEmitter } from '@angular/core';
-import { Response, Jsonp, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
 import {HttpService} from '../request/html.service';
 import {UserService} from '../user/user.service';
 import {DatePipe} from '@angular/common';
 
-import {Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
 
 
@@ -24,8 +20,6 @@ export class QueryService {
   
   private request: string;
   private params: HttpParams;
-  private paramsItem: HttpParams;
-  private options: HttpHeaders;
 
   constructor(private http : HttpService,private _userService: UserService, private datePipe: DatePipe){ }
 
@@ -40,7 +34,7 @@ export class QueryService {
     let options = new HttpHeaders();
     this.params= new HttpParams();
     this.params = this.params.append('PARAM',param);
-    this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+    this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
     headersSearch = headersSearch.set('QUERY_ID', queryId);
     headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
@@ -50,4 +44,20 @@ export class QueryService {
             return data;
     });
   }
+
+  postQueryResult (queryId: string, params: HttpParams, body) {
+    //console.log('postFile',filename, startdate, trace, now, schedule_date, schedule_time, json )
+    this.request = this.baseQueryUrl;
+    let headersSearch = new HttpHeaders();
+    params = params.append('PARAM',localStorage.getItem('myAssistantUser'));
+
+    headersSearch = headersSearch.set('QUERY_ID', queryId );
+    headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());
+    headersSearch = headersSearch.set('LANGUAGE', this._userService.userInfo.envDefaultLanguage);
+    return this.http.post(this.request, this.params, headersSearch, body).map(response => {
+            let data = <any> response;
+            return data;
+    });
+
+   }
 }

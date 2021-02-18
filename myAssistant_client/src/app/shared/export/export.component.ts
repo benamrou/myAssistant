@@ -1,19 +1,15 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { ViewEncapsulation, Input, OnChanges,} from '@angular/core';
 
-import { QueryService, UserService, WidgetService, StructureService } from '../services';
+import { QueryService, UserService  } from '../services';
 
-import { Message } from '../components';
-
-import {NgModule } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Message } from 'primeng/api';
 
 @Component({
 	moduleId: module.id,
     selector: 'export-cmp',
     templateUrl: './export.component.html',
-    providers: [QueryService, WidgetService, UserService, StructureService],
+    providers: [QueryService, UserService],
     styleUrls: ['./export.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
@@ -50,8 +46,7 @@ export class ExportComponent implements OnChanges {
     msgs: Message[] = [];
 
 
-    constructor(private _queryService: QueryService, 
-                private _structureService: StructureService) {
+    constructor(private _queryService: QueryService) {
 
     }
     
@@ -84,26 +79,6 @@ export class ExportComponent implements OnChanges {
                             "children":[ ] }
                         ]
         }];
-        //await new Observable( observer => {
-        this._structureService.getNetwork().subscribe(
-            data =>  {
-                this.network = data;
-                this.networkDataReady = true;
-                //this.selectedNetwork.push(this.network.data[0]);
-                //console.log('Received network : ' + JSON.stringify(this.network));
-            }
-        );
-
-        this._structureService.getStructure().subscribe(
-            data =>  {
-                this.structure = data;
-                //this.selectedNetwork.push(this.network.data[0]);
-                //console.log('Received structure : ' + JSON.stringify(this.structure));
-                this.structureDataReady = true;
-                this.flowDataReady = true;
-                this.initCompleted.emit();
-            }
-        );
             
         
     }

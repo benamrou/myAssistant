@@ -1,5 +1,16 @@
-<app-header></app-header>
-<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<div *ngIf=" mode == 1 ">
+    <designer-header></designer-header>
+    <designer-sidebar (collapsedEvent)="receiveCollapsed($event)"></designer-sidebar>
+</div>
+<div *ngIf=" mode == 2 ">
+    <customer-header></customer-header>
+    <customer-sidebar (collapsedEvent)="receiveCollapsed($event)"></customer-sidebar>
+</div>
+<div *ngIf=" mode == 3 ">
+    <admin-header></admin-header>
+    <admin-sidebar (collapsedEvent)="receiveCollapsed($event)"></admin-sidebar>
+</div>
+
 <section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
     <router-outlet></router-outlet>
 </section>

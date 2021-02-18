@@ -1,12 +1,8 @@
-import {Component, Inject, Injectable,Input,Output,EventEmitter } from '@angular/core';
-import { Response, Jsonp, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Injectable} from '@angular/core';
+import { Response } from '@angular/http';
 import {Router} from '@angular/router';
 import {HttpService} from '../request/html.service';
-import {QueryService} from '../query/query.service';
-import { map } from 'rxjs/operators';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { StructureService } from '../structure/structure.service'
 
 
 export class User {
@@ -28,6 +24,7 @@ export class User {
    public updatedOn: string;
    public lastUserUpdate: string;
    public type: string;
+   public default: number;
 
    public envCorporateAccess: Environment[] = [];
    public envUserAccess: Environment[] = [];
@@ -77,7 +74,6 @@ export class UserService {
 
   private baseUserUrl: string = '/api/user/';
   private baseEnvironmentUrl: string = '/api/environment/';
-  private baseUserProfileUrl: string = '/api/userprofile/';
   
   private request: string;
   private params: HttpParams;
@@ -103,26 +99,27 @@ export class UserService {
         return this.http.get(this.request, this.params)
             .map((response: Response) => {
                 let data = response as any;
-                this.userInfo.username = data[0].USERID; // @ts-ignore
-                this.userInfo.corporate = data[0].USERCORP; // @ts-ignore
-                this.userInfo.password = data[0].USERPASS;
-                this.userInfo.authentificationMethod = data[0].USERAUTH; // @ts-ignore
-                this.userInfo.language = data[0].USERLANG; 
-                this.userInfo.profile = data[0].USERPROF;
-                this.userInfo.application = data[0].USERAPPLI;
-                this.userInfo.firstname = data[0].USERFNAME;
-                this.userInfo.lastname = data[0].USERLNAME;
-                this.userInfo.email = data[0].USEREMAIL;
-                this.userInfo.mobile = data[0].USERMOBILE;
-                this.userInfo.team = data[0].USERTEAM;
-                this.userInfo.status = data[0].USERACTIVE;
-                this.userInfo.createdOn = data[0].USERDCRE;
-                this.userInfo.updatedOn = data[0].USERDMAJ;
-                this.userInfo.lastUserUpdate = data[0].USERUTIL;
-                this.userInfo.type = data[0].USERTYPE;
+                this.userInfo.username = data[0].ARCHID; // @ts-ignore
+                this.userInfo.corporate = data[0].ARCHCUST; // @ts-ignore
+                this.userInfo.password = data[0].ARCHPASS;
+                this.userInfo.authentificationMethod = data[0].ARCHAUTH; // @ts-ignore
+                this.userInfo.language = data[0].ARCHLANG; 
+                this.userInfo.profile = data[0].ARCHPROF;
+                this.userInfo.application = data[0].ARCHAPPLI;
+                this.userInfo.firstname = data[0].ARCHFNAME;
+                this.userInfo.lastname = data[0].ARCHLNAME;
+                this.userInfo.email = data[0].ARCHEMAIL;
+                this.userInfo.mobile = data[0].ARCHMOBILE;
+                this.userInfo.team = data[0].ARCHTEAM;
+                this.userInfo.status = data[0].ARCHACTIVE;
+                this.userInfo.createdOn = data[0].ARCHDCRE;
+                this.userInfo.updatedOn = data[0].ARCHDMAJ;
+                this.userInfo.lastUserUpdate = data[0].ARCHUTIL;
+                this.userInfo.type = data[0].ARCHTYPE;
+                this.userInfo.default = data[0].ARCHDEF;
 
                 //console.log ('data[0] : ' + JSON.stringify(data[0]));
-                //console.log ('USERLNAME : ' + data[0].USERLNAME);
+                //console.log ('USERLNAME : ' + data[0].ARCHLNAME);
                 this.userInfo.userNameDisplay = this.userInfo.firstname + ' ' + this.userInfo.lastname.substring(0,1) + '.';
                 return this.userInfo;
             });
@@ -176,7 +173,7 @@ export class UserService {
                     env.initSH = data[i].ENVVARINITSH;
                     env.titleColor = data[i].ENVTITLECOLOR;
                     env.title = data[i].ENVTITLE;
-                    env.picture = data[i].CORPPIC;
+                    env.picture = data[i].CUSTPIC;
 
                     this.userInfo.envDefaultLanguage = env.defaultLanguage;
                 

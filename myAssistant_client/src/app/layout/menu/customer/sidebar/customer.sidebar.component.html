@@ -1,0 +1,100 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <ul class="list-group">
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('customer_design_menu')">
+                <span><i class="fas fa-cubes"></i> &nbsp; {{lbl_workshop_menu.desc }} </span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'customer_design_menu' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/customer_design" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fas fa-users"></i>&nbsp; {{lbl_workshop_execution.desc}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'customer_design_menu' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/customer_detail_design" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fas fa-users"></i>&nbsp; {{lbl_detail_design.desc }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('data_load_menu')">
+                <span><i class="fas fa-cubes"></i> &nbsp; {{lbl_data_load_menu.desc }} </span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'data_load_menu' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/customer_design" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fas fa-users"></i>&nbsp; {{lbl_data_load_network.desc}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'data_load_menu' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/customer_design" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fas fa-users"></i>&nbsp; {{lbl_data_load_hierarchy.desc }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('batch_design_menu')">
+                <span><i class="fas fa-cubes"></i> &nbsp; {{lbl_batch_menu.desc }} </span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'batch_design_menu' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/customer_design" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fas fa-users"></i>&nbsp; {{lbl_batch_design.desc}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <!--a routerLink="/inventory" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fas fa-cubes"></i>&nbsp; {{lbl_customerSetup.desc }}
+        </a-->
+
+
+        <!--div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('inventory')">
+                <span><i class="fas fa-cubes"></i> &nbsp; {{ 'Inventory' | translate}} </span>
+            </a>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'inventory' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/inventory" [routerLinkActive]="['router-link-active']" ><span><i class="fa fa-fw fa-university"></i> {{ 'Inventory follow-up' | translate}}</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nested" [ngClass]="{'expand' : showMenu === 'inventory' }">
+                <ul class="submenu" >
+                    <li>
+                        <a class="bbs_link_menu" routerLink="/counting" [routerLinkActive]="['router-link-active']" ><span><i class="fa fa-fw fa-university"></i> {{ 'Third-Party counting' | translate}}</span></a>
+                    </li>
+                </ul>
+            </li>
+        </div-->
+    </ul>
+</nav>
+<!-- Administration section -->
+<nav class="sidebar_admin" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}" >
+    <div class="logo">
+        <img style="width: 80%; padding-left: 25%;" src="{{_userService.userInfo.mainEnvironment[0].picture}}" alt="Picture">
+    </div>
+</nav>

@@ -5,15 +5,10 @@
 
 export const environment = {
   production: true,
-  hostURL           : "http://10.200.14.232:9086",
-  serverURL_local   : "http://10.200.14.232:8090",
-  serverURL         : "http://10.200.14.232:8090",
-  serverBatchURL    : "http://10.200.14.232:8091",
-  baseURL           : "http://10.200.14.232:9086/icr",
-  message: ""
-  //serverURL: 'http://localhost:8090',
-  // serverBatchURL: 'http://localhost:8091'
-  // @HOME
-  //serverURL: 'http://192.168.1.101:8090'
-  // HEINENS Office
+  hostURL           : "http://vps145391.vps.ovh.ca:9086",
+  serverURL_local   : "http://vps145391.vps.ovh.ca:8090",
+  serverURL         : "http://vps145391.vps.ovh.ca:8090",
+  serverBatchURL    : "http://vps145391.vps.ovh.ca:8091",
+  baseURL           : "http://vps145391.vps.ovh.ca:9086/myassistant",
+  message           : ""
 };

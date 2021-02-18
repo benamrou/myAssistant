@@ -31,7 +31,7 @@ export class ScreenService {
         let options = new HttpHeaders();
         this.params= new HttpParams();
         this.params = this.params.set('PARAM',screenId);
-        this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+        this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
         headersSearch = headersSearch.set('QUERY_ID', 'SCR0000001');
         return  this.http.get(req, this.params, headersSearch).map(response => {

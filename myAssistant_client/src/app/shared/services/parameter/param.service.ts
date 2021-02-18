@@ -32,7 +32,7 @@ export class ParamService {
     let options = new HttpHeaders();
     this.params= new HttpParams();
     this.params = this.params.append('PARAM',paramTable);
-    this.params = this.params.append('PARAM',localStorage.getItem('ICRUser'));
+    this.params = this.params.append('PARAM',localStorage.getItem('myAssistantUser'));
 
     headersSearch = headersSearch.set('QUERY_ID', this.queryID);
     headersSearch = headersSearch.set('DATABASE_SID', this._userService.userInfo.sid[0].toString());

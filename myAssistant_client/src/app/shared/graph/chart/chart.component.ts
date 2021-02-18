@@ -1,7 +1,7 @@
 import { Component,  ChangeDetectorRef } from '@angular/core';
 import { ViewEncapsulation, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { Message } from '../../components';
+import { Message } from 'primeng/api';
 
 import {NgModule } from '@angular/core';
 import Chart from '../../../../../node_modules/chart.js/';

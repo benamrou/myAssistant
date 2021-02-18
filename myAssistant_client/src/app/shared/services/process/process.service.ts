@@ -8,7 +8,7 @@ import {DatePipe} from '@angular/common';
 import {HttpParams, HttpHeaders } from '@angular/common/http';
 
 
-import { TreeNode } from '../../../shared/components';
+import { TreeNode } from 'primeng/api';
 
 
 export class ProcessData {

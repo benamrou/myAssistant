@@ -1,32 +1,40 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { HeaderComponent } from './components/header/header.component';
+import { SidebarAdminComponent } from './menu/admin/sidebar/admin.sidebar.component';
+import { HeaderAdminComponent } from './menu/admin/header/admin.header.component';
+import { SidebarDesignerComponent } from './menu/designer/sidebar/designer.sidebar.component';
+import { HeaderDesignerComponent } from './menu/designer/header/designer.header.component';
+import { SidebarCustomerComponent } from './menu/customer/sidebar/customer.sidebar.component';
+import { HeaderCustomerComponent } from './menu/customer/header/customer.header.component';
+
+import {DropdownModule} from 'primeng/dropdown';
 //import { HeaderComponent } from './components/header/header.component';
 
 import {GridsterModule} from '../shared/';
-import {DialogModule, ButtonModule} from '../shared/components';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
 
-import { LabelsResolver} from '../shared/services/index';
+
+import {SurveyCreateModule} from './survey';
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
-        TranslateModule,
-        GridsterModule,
-        DialogModule,ButtonModule ,
-        NgbDropdownModule.forRoot()
+        DropdownModule,
+        GridsterModule,NgbDropdownModule,
+        DialogModule,ButtonModule, SurveyCreateModule
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent],
-    providers: [
-        LabelsResolver
-      ],
+    declarations: [LayoutComponent, 
+                    SidebarAdminComponent, HeaderAdminComponent, 
+                    SidebarDesignerComponent, HeaderDesignerComponent, 
+                    SidebarCustomerComponent, HeaderCustomerComponent],
+    providers: [ ],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LayoutModule {}

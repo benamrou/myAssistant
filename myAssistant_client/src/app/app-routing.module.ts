@@ -5,6 +5,8 @@ import { AuthentificationGuard } from './shared/services';
 
 const routes: Routes = [
     
+    /* Pre-Menu */
+    { path: 'premenu', loadChildren: './premenu/premenu.module#PreMenuModule', canActivate: [AuthentificationGuard] },
     { path: 'login', loadChildren: './login/login.module#LoginModule' },
     { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     { path: 'not-accessible', loadChildren: './not-accessible/not-accessible.module#NotAccessibleModule' },
@@ -17,7 +19,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, 
+        { // Restore the last scroll position
+        scrollPositionRestoration: "enabled",
+        scrollOffset: [0, 0],
+        // Enable scrolling to anchors
+        anchorScrolling: "enabled",
+      })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

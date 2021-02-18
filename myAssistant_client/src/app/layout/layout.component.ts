@@ -13,15 +13,22 @@ export class LayoutComponent implements OnInit {
     @Input() doRefresh: boolean;
     collapedSideBar: boolean;
 
+    mode;
+    _router;
+
     constructor(private router: Router, private _userService: UserService) {
         if(!_userService)    {
-            window.location.href = window.location.origin;
+            this.router.navigate(['/login']);
         }
+        this._router = router;
+        if (this._router.url.indexOf('design') > -1)     { this.mode =1}
+        if (this._router.url.indexOf('customer') > -1)   { this.mode =2}
+        if (this._router.url.indexOf('admin') > -1)      { this.mode =3}
     }
 
     ngOnInit() {
         if (this.router.url === '/') {
-            this.router.navigate(['/dashboard']);
+            //this.router.navigate(['/dashboard']);
         }
     }
 

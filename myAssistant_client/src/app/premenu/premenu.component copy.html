@@ -1,0 +1,74 @@
+
+
+
+<div  style="background-color: var(--APP_BACKGROUND_LVL1); color: white">        
+    <div class="row" style="border-bottom: 0.1em white solid; background-color: white;">
+        <div  style="width: 100%;margin-right: 2em;margin-top: 1em;border-bottom: 0.1em white solid;color: black;">
+            <i class="fas fa-sign-out-alt" 
+                pTooltip="Back to login"
+                style="transform: rotateZ(180deg); margin-left:3em" 
+                (click)="back()"></i>
+            <h6 style="float: right; font-family: system-ui;"> Joe design assistant</h6>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="row" style="margin-top: 10%; width: 100%; justify-content: center;">
+            <div class="col-sm-5">
+                <div class="card card-flip" style="background: border-box;">
+                    <div class="card-front text-white bg-dark">
+                        <div class="card-body">
+                            <i class="fa fa fa-industry fa-2x float-right"></i>
+                            <h3 class="card-title" style="margin-top:10%; text-align: center">{{optionDesigner_text[0]}}</h3>
+                            <p class="card-text" style="text-align: center;padding-top: 1em;" [innerHTML]="optionDesigner_text[1]"></p>
+                        </div>
+                    </div>
+                    <div class="card-back text-dark bg-white">
+                        <div class="card-body d-flex flex-column" >
+                            <h3 class="card-title bg-dark" 
+                                style="text-align: center;border-radius: 10px; color: white; font-size: medium; ">{{optionDesigner_text[2]}}</h3>
+                            <p class="card-text" [innerHTML]="optionDesigner_text[3]" style="padding-top: 1em;"></p>
+                            <a routerLink="/dashboard_designer" routerLinkActive="active" class="align-self-end btn btn-sm btn-light btn-outline-dark" style="width: 100%;margin-top: auto;">Enter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="card card-flip h-100" style="background: border-box;">
+                    <div class="card-front text-white bg-warning">
+                        <div class="card-body">
+                            <i class="fa fa-users fa-2x float-right"></i>
+                            <h3 class="card-title" style="margin-top:10%; text-align: center">{{optionCustomer_text[0]}}</h3>
+                            <p class="card-text"   [innerHTML]="optionCustomer_text[1]" style="padding-top: 1em;text-align: center"></p>
+                        </div>
+                    </div>
+                    <div class="card-back text-dark bg-white">
+                        <div class="card-body d-flex flex-column" >
+                            <h3 class="card-title bg-warning" style="text-align: center;border-radius: 10px;font-size: medium;">{{optionCustomer_text[2]}}</h3>
+                            <p class="card-text" [innerHTML]="optionCustomer_text[3]" style="padding-top: 1em;"></p>
+                            <a routerLink="/dashboard_customer" routerLinkActive="active" class="align-self-end btn btn-sm btn-light btn-outline-dark" style="width: 100%;margin-top: auto;">Enter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="card card-flip" style="background: border-box;">
+                    <div class="card-front text-white bg-dark">
+                        <div class="card-body">
+                            <fa-icon [icon]="['fa', 'fa-industry']"></fa-icon>
+                            <h3 class="card-title" style="margin-top:10%; text-align: center">{{optionDesigner_text[0]}}</h3>
+                            <p class="card-text" style="text-align: center;padding-top: 1em;" [innerHTML]="optionDesigner_text[1]"></p>
+                        </div>
+                    </div>
+                    <div class="card-back text-dark bg-white">
+                        <div class="card-body d-flex flex-column" >
+                            <h3 class="card-title bg-dark" 
+                                style="text-align: center;border-radius: 10px; color: white; font-size: medium; ">{{optionDesigner_text[2]}}</h3>
+                            <p class="card-text" [innerHTML]="optionDesigner_text[3]" style="padding-top: 1em;"></p>
+                            <a routerLink="/dashboard_designer" routerLinkActive="active" class="align-self-end btn btn-sm btn-light btn-outline-dark" style="width: 100%;margin-top: auto;">Enter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

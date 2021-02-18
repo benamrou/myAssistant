@@ -1,0 +1,11 @@
+<div [@routerTransition]>
+    <app-page-header #pageHeader [heading]="'Recent Activities Overview'" [icon]="'fas fa-thumbtack'"
+                     [routerLinkDashboard]="['/dashboard_designer']"
+                     [(screenID)]="screenID"></app-page-header>
+</div>
+
+<div class="content-section implementation" style="padding: 5px">
+    <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+</div>
+
+

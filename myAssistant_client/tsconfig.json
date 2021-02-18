@@ -8,6 +8,9 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "esnext", // add this line to allow dynamic import
     "skipLibCheck": true,
     "target": "es5",
     "typeRoots": [
@@ -18,9 +21,13 @@
       "dom"
     ],
     "paths": {
-      "core-js/es7/reflect": [ "node_modules/core-js/proposals/reflect-metadata"]
+      "core-js/es7/reflect": [ "node_modules/core-js/proposals/reflect-metadata"],
+      "survey-knockout": ["../node_modules/survey-knockout"]
     }
   },
+  "types": [
+    "knockout"
+  ],
   "typeRoots": [
     "node_modules/@types",
     "src/typings.d.ts"

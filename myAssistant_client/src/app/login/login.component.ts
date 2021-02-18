@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { Message, MessageService } from '../shared/components/index';
-import { LogginService, UserService, LabelService, StructureService, ScreenService } from '../shared/services/index';
+import { Message, MessageService } from 'primeng/api';
+
+import { LogginService, UserService, LabelService, ScreenService } from '../shared/services/index';
 import { mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +11,7 @@ import { mergeMap } from 'rxjs/operators';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     animations: [routerTransition()],
-    providers: [MessageService, StructureService, ScreenService]
+    providers: [MessageService, ScreenService]
 })
 export class LoginComponent implements OnInit {
 
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit {
     canConnect: boolean = false;
 	connectionMessage: Message [] = [];
 
-    constructor(public router: Router, private _logginService: LogginService, 
+    constructor(public router: Router, 
+                private _logginService: LogginService, 
+                private _labelService: LabelService,
                 private _userService: UserService,
                 private _messageService: MessageService,) { 
         this.canConnect = false;
@@ -50,6 +53,8 @@ export class LoginComponent implements OnInit {
                 .subscribe( result => {
                     this.canConnect = result;
                     if (this.canConnect) {
+
+
                         this.fetchUserConfiguration();
                     }
                     else {
@@ -74,19 +79,36 @@ export class LoginComponent implements OnInit {
 		 */
 
         this.parameterGathered = true;
-        this.labelsGathered = true;
         await this._userService.getInfo(localStorage.getItem('myAssistantUser'))
-            .subscribe( result => { this.userInfoGathered = true; });        
-
-        await this._userService.getEnvironment(localStorage.getItem('myAssistantUser'))       
-            .subscribe( result => { 
-                console.log('Environment data gathered');
-                this.environmentGathered = true;
-                localStorage.setItem('isLoggedin', 'true');
-                this.router.navigate(['/dashboard']);
+            .subscribe( result => { this.userInfoGathered = true; })       
+            .add (() => { console.log('processing labels');
+                        this._labelService.getAllLabels()
+                        .subscribe( result => { 
+                            this._labelService.labels=result;
+                            console.log('his._labelService.labels', this._labelService.labels);
+                            this.userInfoGathered = true; })})
+            .add(()   => { this._userService.getEnvironment(localStorage.getItem('myAssistantUser'))       
+                        .subscribe( result => { 
+                            console.log('Environment data gathered', this._userService.userInfo);
+                            this.environmentGathered = true;
+                            localStorage.setItem('isLoggedin', 'true');
+                            // Route to pre-menu if default login apps not defined
+                            if (this._userService.userInfo.default == 0) {
+                                //this.router.navigate(['/premenu']);
+                                this.router.navigateByUrl('/premenu');
+                            }
+                            // Route to Template design if default login apps is 1
+                            if (this._userService.userInfo.default == 1) {
+                                this.router.navigate(['/dashboard']);
+                            }
+                            // Route to Customer design if default login apps is 2
+                            if (this._userService.userInfo.default == 2) {
+                                this.router.navigate(['/dashboard']);
+                            }
+                            
+                        }
+                    )
             });
-
-        
     }
 
     showHideVersion() {

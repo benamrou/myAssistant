@@ -12,6 +12,7 @@ export class PageHeaderComponent implements OnInit {
     @Input() screenID: string;
     @Input() heading: string;
     @Input() icon: string;
+    @Input() routerLinkDashboard: string;
 
     screenInfo;
     constructor(private _screenInfo: ScreenService) {

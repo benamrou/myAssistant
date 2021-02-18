@@ -1,0 +1,156 @@
+<div [@routerTransition]>
+    <app-page-header #pageHeader [heading]="'Scenario, Question, Examples Manager'" [icon]="'fas fa-thumbtack'"
+                     [routerLinkDashboard]="['/dashboard_designer']"
+                     [(screenID)]="screenID"></app-page-header>
+</div>
+
+<div class="content-section implementation" style="padding: 5px">
+    <p-toast [style]="{marginTop: '80px'}" position="top-right"></p-toast>
+</div>
+
+<h1>SurveyJS Creator</h1><survey-creator></survey-creator>
+
+<!-- MODE DISPLAY-->
+<div *ngIf="v_mode == v_modeDisplay">
+    <p-table #dt [value]="templates" [rows]="10" 
+        dataKey="FACINTID"
+        [paginator]="true" 
+        [columns]="columnScenarios"
+        [(selection)]="selectedScenario"
+        selectionMode="single" 
+        [metaKeySelection]="false"
+        [globalFilterFields]="['FADID','FACNAME','FACDESC','FACTAGS', 'FACTAGSPROFIL', 'FACDURATION']">
+        <ng-template pScenario="caption">
+            <div style="display: block;margin-bottom: 2em; height: 0px">
+                <button pButton pRipple icon="pi pi-plus" class=""  style="border-radius: 50%; font-size:0.2em" tooltipPosition="top" (click)="openNew()" pTooltip="New"></button>
+                <button pButton pRipple icon="pi pi-save" class=""  style="border-radius: 50%; left:0.2em; font-size:0.2em" tooltipPosition="top" (click)="saveChanges()" pTooltip="Save"></button>
+                <button pButton pRipple icon="pi pi-upload" style="border-radius: 50%; left:0.2em; font-size:0.2em" tooltipPosition="top" (click)="exportExcel()" pTooltip="Export"></button>
+                <span class="p-input-icon-left" style="float: right;width: 30%;">
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." style="width: 100%;"/>
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pScenario="header">
+            <tr  style="font-size: small; line-height: 1; ">
+                <ng-container *ngFor="let col of columnScenarios">
+                    <th *ngIf="col.display" [style.text-align]="col.align" pSortableColumn="{{col.field}}">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </ng-container>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pScenario="body" let-rowData let-i="rowIndex">
+            <tr *ngIf="dataReady" style="font-size:small" [pSelectableRow]="rowData" (click)="selectRow(i)">
+                <ng-container *ngFor="let col of columnScenarios">
+                    <td *ngIf="col.display" [style.text-align]="col.align">
+                        {{rowData[col.field]}}
+                    </td>
+                </ng-container>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" tooltipPosition="top" class="p-button-rounded p-button-success p-mr-2" (click)="editScenario(i)"></button>
+                    <button pButton pRipple icon="pi pi-trash" tooltipPosition="top" class="p-button-rounded p-button-warning" (click)="deleteScenario(i)" style="left:0.2em; "></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pScenario="summary">
+            <div style="float:right; line-height: 0; font-size: small; font-weight: lighter;" *ngIf="dataReady">
+                {{templates.length}} references
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+<!-- Bottom tags-->
+<div style="height: 40%;padding-top: 0.2em;" *ngIf="dataReady && rowSelected && v_mode == v_modeDisplay">
+    <div class="card" style="display: inline-block; width: 49%">
+        <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold; line-height: 0;">
+            Keywords/Tags
+        </div>
+        <div >
+            <p-chips [(ngModel)]="keywordsTags" disabled></p-chips>
+        </div>
+      </div>
+
+      <div class="card" style="display: inline-block; width: 50%; float:right;">
+        <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold;line-height: 0;">
+          Customer profile required
+        </div>
+        <div >
+            <p-chips [(ngModel)]="profilesTags" disabled>
+                <ng-template let-item pScenario="item">
+                     <i class="pi pi-user" style="margin-right: 0.3em;"></i>  {{item}}
+                </ng-template>
+            </p-chips>
+        </div>
+      </div>
+
+</div>
+
+<!-- MODE EDIT-->
+<!-- Edit dialog box-->
+<div *ngIf="v_mode == v_modeEdit">{{v_modeEdit}}
+    <p-card [style]="{width: '100%'}" styleClass="p-card-shadow">
+        <p-header>
+            <div class="p-d-flex p-jc-between" style="border-bottom: 0.1em solid goldenrod;">
+                <div style="font-size: 1.5em; font-weight: bold; margin-left: 0.3em;">
+                    Editing Scenario
+                </div>
+                <div>
+                    <button pButton pRipple label="Cancel" icon="fa fa-angle-double-left" class="p-button-text" (click)="cancelEdit()" style="float:right" required></button>
+                    <button pButton pRipple label="Close" icon="pi pi-times" class="p-button-text" (click)="closeEdit()" style="float:right" required></button>
+                </div>
+            </div>
+        </p-header>
+        <!-- body-->
+        <div class="p-fluid p-formgrid p-grid" style="padding-top: 0px;">
+            <div class="p-field p-col-12 p-md-6">
+                <label for="id_template">Id</label>
+                <input id="id_template" type="text" maxlength="15" pInputText [(ngModel)]="selectedScenario.FACID" required autofocus /> 
+                <small class="p-invalid" *ngIf="!selectedScenario.FACID">Id is required (max. 15 characters).</small>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="name_template">Name</label>
+                <input id="name_template" type="text" pInputText maxlength="50" [(ngModel)]="selectedScenario.FACNAME" required  />
+                <small class="p-invalid" *ngIf="!selectedScenario.FACNAME">Name is required.</small>
+            </div>
+            <div class="p-field p-col-12">
+                <label for="desc_template">Description</label>
+                <textarea id="desc_template" type="text" rows="4" maxlength="500" pInputTextarea [(ngModel)]="selectedScenario.FACDESC" ></textarea>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="duration_template">Duration (hours)</label>
+                <p-inputNumber id="duration_template" mode="decimal" [minFractionDigits]="2" [step]="0.25" [min]="0" [(ngModel)]="selectedScenario.FACDURATION"  maxlength="5"></p-inputNumber>
+                <small class="p-invalid" *ngIf="!selectedScenario.FACDURATION">Nb. Hours is required.</small>
+            </div>
+        </div>
+    </p-card>
+</div>
+
+<!-- Bottom tags-->
+<div style="height: 40%;padding-top: 0.2em;" *ngIf="dataReady && v_mode == v_modeEdit">
+    <div class="card" style="display: inline-block; width: 49%">
+        <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold;line-height: 0;">
+          Keywords/Tags
+        </div>
+        <div >
+            <p-chips [(ngModel)]="keywordsTags"></p-chips>
+        </div>
+      </div>
+
+      <div class="card" style="display: inline-block; width: 50%; float:right;">
+        <div class="card-header" style="background-color: darkgoldenrod; color: white;font-weight: bold;line-height: 0;">
+          Customer profile required
+        </div>
+        <div >
+            <p-chips [(ngModel)]="profilesTags">
+                <ng-template let-item pScenario="item">
+                     <i class="pi pi-user" style="margin-right: 0.3em;"></i>  {{item}}
+                </ng-template>
+            </p-chips>
+        </div>
+      </div>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

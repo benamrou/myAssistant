@@ -1,0 +1,41 @@
+<div  style="background-color: var(--APP_BACKGROUND_LVL1); color: white">        
+    <div class="row" style="border-bottom: 0.1em white solid; background-color: white;">
+        <div  style="width: 100%;margin-right: 2em;margin-top: 1em;border-bottom: 0.1em white solid;color: black;">
+            <i class="fas fa-sign-out-alt" 
+                pTooltip="Back to login"
+                style="transform: rotateZ(180deg); margin-left:3em" 
+                (click)="navigate('/login')"></i>
+            <h6 style="float: right; font-family: system-ui;"> Joe design assistant</h6>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="row" style="margin-top: 10%; width: 100%; justify-content: center; text-align: center;">
+            <!-- Back login -->
+            <div class="icon_premenu icon_premenu-fill" 
+                (click)="navigate('/login')"  
+                pTooltip="Back to login" tooltipPosition="top" tooltipStyleClass="toolTipOverwite"><i class="fa fa-home"></i></div>
+            <!-- Designer -->
+            <div class="icon_premenu icon_premenu-enter" 
+                (click)="navigate('/dashboard_designer')"  (mouseover)="displayId=0; displayInfo = true" (mouseout)="displayInfo=false"
+                pTooltip="Design factory" tooltipPosition="top"><i class="fa fa-industry"></i></div>
+            <!-- Customer design -->
+            <div class="icon_premenu icon_premenu-expand" 
+                (click)="navigate('/dashboard_customer')" (mouseover)="displayId=1; displayInfo = true" (mouseout)="displayInfo=false"
+                pTooltip="Customer design" tooltipPosition="top"> <i class="fa fa-chalkboard-teacher"></i></div>
+            <!-- Administration -->
+            <div class="icon_premenu icon_premenu-rotate" 
+                (click)="navigate('/dashboard_admin')" (mouseover)="displayId=2; displayInfo = true" (mouseout)="displayInfo=false"
+                pTooltip="Administration" tooltipPosition="top"><i class="fa fa-users"></i></div>
+            <!-- Settings -->
+            <div class="icon_premenu icon_premenu-collapse" 
+                (click)="navigate('/dashboard_designer')" (mouseover)="displayId=3; displayInfo = true" (mouseout)="displayInfo=false"
+                pTooltip="Preferences" tooltipPosition="top"><i class="fa fa-bars"></i></div>
+        </div>
+        <div *ngIf="displayInfo" class="row" 
+             style="margin-top: 8%;color: lightgray; border-top: 1px white solid; border-bottom: 1px white solid;">
+            <div style=" padding-left: 2em; padding-top: 1em; font-size: smaller;">
+                <h5 style="font-weight: bold; font-family: system-ui;">{{label_textDisplay_id[displayId]}}</h5>
+                <p  style="padding-top: 1em;padding-bottom: 5%;" [innerHTML]="label_detailTextDisplay_id[displayId]"></p>
+            </div>
+    </div>
+</div>

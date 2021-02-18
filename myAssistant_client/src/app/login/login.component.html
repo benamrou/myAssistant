@@ -4,36 +4,89 @@
     <div class="row justify-content-md-center" >
 		<!-- Snow effect -->
 		<!--div *ngFor="let dummy of ' '.repeat(100).split('')" class="snowflake">*</div-->
-
         <div class="col-md-4">
             <img src="./assets/images/logo.png" width="150px" class="user-avatar" (click)="showHideVersion()" />
-			<h1>myAssistant</h1>  
+			<h2 style="font-family: fantasy; padding-top:0.5em">Joe</h2>  
+			<h5 style="font-family: fantasy;">Design Assistant</h5>  
 			<p-toast></p-toast>
 
             <form role="form" (ngSubmit)="onLoggedin()" >
                 <div class="form-content">
-                    <div class="form-group">
+                    <div class="form-group" style="padding: unset;">
                         <input type="text" name="username" [(ngModel)]="authentification.username"  
 							   class="form-control input-underline input-lg" id="" placeholder="Username"
                                style="border: 1px solid;font-size: .9375rem;line-height: 1.5rem;font-weight: 600;">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="padding: unset;">
                         <input type="password" [(ngModel)]="authentification.password"  name="password"
                                class="form-control input-underline input-lg" id="" placeholder="Password"
 							   style="border: 1px solid;font-size: .9375rem;line-height: 1.5rem;font-weight: 600;">
                     </div>
                 </div>
-                <button class="btn rounded-btn" style="width: 100%;background-color: #3F3E64;color: mediumpurple; border-radius: 0.2em"
+                <button class="btn rounded-btn" style="width: 100%;background-color: #3F3E64;color: white; border-radius: 0.2em"
                         type="submit" [disabled]="authentification.username.length === 0 " > Log in </button>
             </form>
 
-&nbsp;
-<br>
-<br>
-<br>
+        &nbsp;
+        <br>
+        <br>
+        <br>
         </div>
-	</div>
+
+    </div>
+    <!-- Log -->
+        <div lass="p-grid" *ngIf="canConnect" style="font-size: smaller; line-height: 1;">
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left" >User authentification validation</div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green; " aria-hidden="true" *ngIf="userInfoGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!userInfoGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Gathering user information and authorization profiles</div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="userInfoGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!userInfoGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Gathering user Menu access </div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="userInfoGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!userInfoGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Gathering user Environment access </div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="environmentGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!environmentGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Gathering parameter list  </div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="parameterGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!parameterGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Gathering labels in your language </div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="labelsGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!labelsGathered"></i>
+                </div>
+            </div>
+            <div class="p-col-4 p-offset-4 p-field p-grid" style="line-height: 0; margin-bottom: 0; ">
+                <div style="font-weight: bolder; width: 90%; text-align: left;" >Refreshing your workspace with your preference </div>
+                <div style="float: right;width: 10%;">
+                    <i class="fa fa-check" style="color: green;" aria-hidden="true" *ngIf="labelsGathered"></i>
+                    <i class="fa fa-spinner" style="color: gray;" aria-hidden="true" *ngIf="!labelsGathered"></i>
+                </div>
+            </div>
+        </div>
 </div>
 
 

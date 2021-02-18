@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { PageHeaderComponent } from './page-header.component';
-import {OverlayPanelModule} from '../../components'
+import {OverlayPanelModule} from 'primeng/overlaypanel'
 
 @NgModule({
     imports: [CommonModule, RouterModule, OverlayPanelModule],

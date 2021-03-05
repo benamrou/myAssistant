@@ -63,8 +63,7 @@
 
               "node_modules/ckeditor/ckeditor.js",
    
-              "node_modules/jspdf/dist/jspdf.min.js",
-              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js",
+             
               "node_modules/xlsx/dist/xlsx.min.js"
             ]
           },

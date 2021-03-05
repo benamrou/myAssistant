@@ -19,7 +19,7 @@
 </div>
 
 <!-- MODE LIST-->
-<perfect-scrollbar ps-show-always style="max-width: 100%; max-height:700px;position: relative" fxFlex="auto"  [scrollIndicators]="true" [config]="config">
+<perfect-scrollbar ps-show-always style="max-width: 100%; max-height:fit-content;position: relative" fxFlex="auto"  [scrollIndicators]="true" [config]="config">
    <!-- Mode display-->
     <div *ngIf="v_mode == v_modeDisplay" style="padding-top: 1em;">
         <p-table #dt [value]="scenarios" [rows]="10" 
